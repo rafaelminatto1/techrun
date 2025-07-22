@@ -1,0 +1,107 @@
+flowchart TD
+    A[Início do App] --> B{Usuário Logado?}
+    B -->|Não| C[Tela de Login/Registro]
+    B -->|Sim| D[Dashboard Principal]
+    
+    C --> C1[Registro de Novo Usuário]
+    C --> C2[Login Existente]
+    C1 --> C3[Seleção de Tipo de Usuário]
+    C3 --> C4[Atleta Individual]
+    C3 --> C5[Coach/Treinador]
+    C3 --> C6[Fisioterapeuta]
+    C4 --> D
+    C5 --> D
+    C6 --> D
+    C2 --> D
+    
+    D --> E[Capturar Novo Vídeo]
+    D --> F[Ver Histórico de Análises]
+    D --> G[Relatórios de Progresso]
+    D --> H[Configurações de Perfil]
+    
+    E --> E1[Seleção do Tipo de Exercício]
+    E1 --> E2[Corrida]
+    E1 --> E3[Salto Vertical]
+    E1 --> E4[Agachamento]
+    E1 --> E5[Outros Exercícios]
+    
+    E2 --> E6[Configurar Câmera]
+    E3 --> E6
+    E4 --> E6
+    E5 --> E6
+    
+    E6 --> E7[Gravação de Vídeo]
+    E7 --> E8[Processamento Local]
+    E8 --> E9{Análise Completa?}
+    E9 -->|Não| E10[Enviar para Nuvem]
+    E9 -->|Sim| E11[Exibir Resultados]
+    E10 --> E12[Processamento na Nuvem]
+    E12 --> E11
+    
+    E11 --> E13[Feedback Visual]
+    E11 --> E14[Métricas Detalhadas]
+    E11 --> E15[Recomendações]
+    
+    E13 --> E16{Usuário Premium?}
+    E14 --> E16
+    E15 --> E16
+    
+    E16 -->|Não| E17[Funcionalidades Limitadas]
+    E16 -->|Sim| E18[Funcionalidades Completas]
+    
+    E17 --> E19[Oferta de Upgrade]
+    E18 --> E20[Salvar Análise]
+    E19 --> E21{Aceita Upgrade?}
+    E21 -->|Sim| E22[Processo de Pagamento]
+    E21 -->|Não| E20
+    E22 --> E18
+    
+    E20 --> F1[Histórico Atualizado]
+    
+    F --> F2[Lista de Análises]
+    F2 --> F3[Filtros por Data]
+    F2 --> F4[Filtros por Exercício]
+    F2 --> F5[Busca por Palavra-chave]
+    
+    F3 --> F6[Visualizar Análise Específica]
+    F4 --> F6
+    F5 --> F6
+    
+    F6 --> F7[Comparar com Análises Anteriores]
+    F6 --> F8[Compartilhar Resultados]
+    F6 --> F9[Exportar Dados]
+    
+    G --> G1[Relatório de Progresso Semanal]
+    G --> G2[Relatório de Progresso Mensal]
+    G --> G3[Análise de Tendências]
+    G --> G4[Comparação com Metas]
+    
+    G1 --> G5{Usuário Premium?}
+    G2 --> G5
+    G3 --> G5
+    G4 --> G5
+    
+    G5 -->|Não| G6[Relatórios Básicos]
+    G5 -->|Sim| G7[Relatórios Avançados]
+    
+    G6 --> G8[Oferta de Upgrade]
+    G7 --> G9[Exportar PDF]
+    G7 --> G10[Compartilhar com Coach]
+    
+    H --> H1[Informações Pessoais]
+    H --> H2[Preferências de Treinamento]
+    H --> H3[Configurações de Privacidade]
+    H --> H4[Integrações]
+    H --> H5[Assinatura e Pagamentos]
+    
+    H4 --> H6[Apple HealthKit]
+    H4 --> H7[Google Fit]
+    H4 --> H8[Strava]
+    H4 --> H9[Dispositivos Wearables]
+    
+    style A fill:#e1f5fe
+    style D fill:#f3e5f5
+    style E11 fill:#e8f5e8
+    style E18 fill:#fff3e0
+    style G7 fill:#fff3e0
+

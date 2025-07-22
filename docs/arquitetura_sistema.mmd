@@ -1,0 +1,110 @@
+graph TB
+    subgraph "Frontend Mobile"
+        A[React Native App]
+        A1[iOS App]
+        A2[Android App]
+        A --> A1
+        A --> A2
+    end
+    
+    subgraph "API Gateway"
+        B[Load Balancer]
+        B1[Authentication Service]
+        B2[Rate Limiting]
+        B3[API Versioning]
+        B --> B1
+        B --> B2
+        B --> B3
+    end
+    
+    subgraph "Microservices Backend"
+        C[User Management Service]
+        D[Video Processing Service]
+        E[Analysis Service]
+        F[Notification Service]
+        G[Payment Service]
+        H[Reporting Service]
+    end
+    
+    subgraph "AI/ML Services"
+        I[MediaPipe Service]
+        J[OpenCV Processing]
+        K[Custom ML Models]
+        L[Pose Analysis Engine]
+        I --> J
+        J --> K
+        K --> L
+    end
+    
+    subgraph "Data Layer"
+        M[(PostgreSQL)]
+        N[(Redis Cache)]
+        O[(MongoDB)]
+        P[File Storage S3]
+        Q[Video CDN]
+    end
+    
+    subgraph "External Integrations"
+        R[Apple HealthKit]
+        S[Google Health Connect]
+        T[Strava API]
+        U[Payment Gateways]
+        V[Push Notifications]
+    end
+    
+    subgraph "Infrastructure"
+        W[Docker Containers]
+        X[Kubernetes Orchestration]
+        Y[Monitoring & Logging]
+        Z[CI/CD Pipeline]
+    end
+    
+    %% Connections
+    A1 --> B
+    A2 --> B
+    
+    B --> C
+    B --> D
+    B --> E
+    B --> F
+    B --> G
+    B --> H
+    
+    D --> I
+    E --> I
+    
+    C --> M
+    C --> N
+    D --> P
+    D --> Q
+    E --> M
+    E --> O
+    F --> N
+    G --> M
+    H --> M
+    H --> O
+    
+    C --> R
+    C --> S
+    C --> T
+    G --> U
+    F --> V
+    
+    C --> W
+    D --> W
+    E --> W
+    F --> W
+    G --> W
+    H --> W
+    I --> W
+    
+    W --> X
+    X --> Y
+    X --> Z
+    
+    style A fill:#e3f2fd
+    style B fill:#f3e5f5
+    style I fill:#e8f5e8
+    style M fill:#fff3e0
+    style W fill:#fce4ec
+

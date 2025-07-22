@@ -1,0 +1,61 @@
+{
+  "name": "FitAnalyzerPro",
+  "displayName": "FitAnalyzer Pro",
+  "version": "1.0.0",
+  "description": "Aplicativo de análise de movimento e fitness com IA",
+  "author": "FitAnalyzer Team",
+  "license": "MIT",
+  "expo": {
+    "name": "FitAnalyzer Pro",
+    "slug": "fitanalyzer-pro",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./src/assets/images/icon.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./src/assets/images/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1E3A8A"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.fitanalyzer.pro",
+      "buildNumber": "1",
+      "infoPlist": {
+        "NSCameraUsageDescription": "Este app precisa acessar a câmera para capturar vídeos de exercícios para análise.",
+        "NSMicrophoneUsageDescription": "Este app precisa acessar o microfone para gravar áudio junto com os vídeos.",
+        "NSPhotoLibraryUsageDescription": "Este app precisa acessar a galeria de fotos para salvar e carregar vídeos de exercícios.",
+        "NSMotionUsageDescription": "Este app usa dados de movimento para análise de exercícios.",
+        "NSHealthShareUsageDescription": "Este app integra com o HealthKit para compartilhar dados de fitness.",
+        "NSHealthUpdateUsageDescription": "Este app atualiza dados de saúde no HealthKit.",
+        "NSFaceIDUsageDescription": "Use Face ID para autenticação rápida e segura."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./src/assets/images/adaptive-icon.png",
+        "backgroundColor": "#1E3A8A"
+      },
+      "package": "com.fitanalyzer.pro",
+      "versionCode": 1,
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO",
+        "android.permission.WRITE_EXTERNAL_STORAGE",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.INTERNET",
+        "android.permission.ACCESS_NETWORK_STATE",
+        "android.permission.VIBRATE",
+        "android.permission.USE_FINGERPRINT",
+        "android.permission.USE_BIOMETRIC",
+        "android.permission.BODY_SENSORS"
+      ]
+    },
+    "web": {
+      "favicon": "./src/assets/images/favicon.png"
+    }
+  }
+}

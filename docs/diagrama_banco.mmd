@@ -1,0 +1,163 @@
+erDiagram
+    USERS {
+        uuid id PK
+        string email UK
+        string password_hash
+        string first_name
+        string last_name
+        enum user_type "athlete, coach, physiotherapist"
+        json profile_data
+        timestamp created_at
+        timestamp updated_at
+        boolean is_active
+        string subscription_plan
+    }
+    
+    VIDEOS {
+        uuid id PK
+        uuid user_id FK
+        string filename
+        string original_filename
+        integer duration_seconds
+        string resolution
+        integer file_size
+        enum exercise_type "running, jumping, squats, other"
+        enum status "processing, completed, failed"
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    ANALYSES {
+        uuid id PK
+        uuid video_id FK
+        json pose_data
+        json metrics
+        float overall_score
+        json recommendations
+        enum analysis_version
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    TRAINING_SESSIONS {
+        uuid id PK
+        uuid user_id FK
+        string session_name
+        text description
+        date session_date
+        integer duration_minutes
+        json exercises_performed
+        json session_metrics
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    REPORTS {
+        uuid id PK
+        uuid user_id FK
+        enum report_type "weekly, monthly, custom"
+        date start_date
+        date end_date
+        json report_data
+        string pdf_url
+        timestamp created_at
+    }
+    
+    TRAINING_PLANS {
+        uuid id PK
+        uuid coach_id FK
+        string plan_name
+        text description
+        json plan_structure
+        integer duration_weeks
+        decimal price
+        boolean is_public
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    USER_TRAINING_PLANS {
+        uuid id PK
+        uuid user_id FK
+        uuid training_plan_id FK
+        date start_date
+        date end_date
+        enum status "active, completed, paused"
+        json progress_data
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    COACH_ATHLETE_RELATIONSHIPS {
+        uuid id PK
+        uuid coach_id FK
+        uuid athlete_id FK
+        date relationship_start
+        date relationship_end
+        boolean is_active
+        timestamp created_at
+    }
+    
+    SUBSCRIPTIONS {
+        uuid id PK
+        uuid user_id FK
+        enum plan_type "free, basic, pro, coach"
+        date start_date
+        date end_date
+        decimal amount
+        string payment_method
+        enum status "active, cancelled, expired"
+        timestamp created_at
+        timestamp updated_at
+    }
+    
+    DEVICE_INTEGRATIONS {
+        uuid id PK
+        uuid user_id FK
+        enum device_type "apple_watch, garmin, fitbit, strava"
+        string external_id
+        json sync_settings
+        timestamp last_sync
+        boolean is_active
+        timestamp created_at
+    }
+    
+    NOTIFICATIONS {
+        uuid id PK
+        uuid user_id FK
+        string title
+        text message
+        enum type "training_reminder, analysis_complete, achievement"
+        boolean is_read
+        timestamp sent_at
+        timestamp read_at
+    }
+    
+    ACHIEVEMENTS {
+        uuid id PK
+        uuid user_id FK
+        string achievement_type
+        string achievement_name
+        text description
+        json achievement_data
+        timestamp earned_at
+    }
+    
+    %% Relationships
+    USERS ||--o{ VIDEOS : creates
+    USERS ||--o{ TRAINING_SESSIONS : has
+    USERS ||--o{ REPORTS : generates
+    USERS ||--o{ SUBSCRIPTIONS : has
+    USERS ||--o{ DEVICE_INTEGRATIONS : connects
+    USERS ||--o{ NOTIFICATIONS : receives
+    USERS ||--o{ ACHIEVEMENTS : earns
+    
+    VIDEOS ||--|| ANALYSES : analyzed_by
+    
+    USERS ||--o{ TRAINING_PLANS : creates_as_coach
+    TRAINING_PLANS ||--o{ USER_TRAINING_PLANS : assigned_to
+    USERS ||--o{ USER_TRAINING_PLANS : follows
+    
+    USERS ||--o{ COACH_ATHLETE_RELATIONSHIPS : coach_relationship
+    USERS ||--o{ COACH_ATHLETE_RELATIONSHIPS : athlete_relationship
+
