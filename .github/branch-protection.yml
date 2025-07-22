@@ -1,0 +1,48 @@
+# Configuração de proteção de branches para o GitHub
+# Este arquivo serve como documentação das regras recomendadas
+# As regras devem ser aplicadas manualmente no GitHub
+
+branch_protection:
+  master:
+    required_status_checks:
+      strict: true
+      contexts:
+        - "CI / Test (16.x)"
+        - "CI / Test (18.x)"
+        - "CI / Test (20.x)"
+        - "CI / Lint"
+        - "CI / TypeScript Check"
+        - "CI / Backend Tests"
+        - "CI / Security Audit"
+    enforce_admins: true
+    required_pull_request_reviews:
+      required_approving_review_count: 2
+      dismiss_stale_reviews: true
+      require_code_owner_reviews: true
+    restrictions:
+      users: []
+      teams: []
+    allow_force_pushes: false
+    allow_deletions: false
+
+  develop:
+    required_status_checks:
+      strict: true
+      contexts:
+        - "CI / Test (16.x)"
+        - "CI / Test (18.x)"
+        - "CI / Test (20.x)"
+        - "CI / Lint"
+        - "CI / TypeScript Check"
+        - "CI / Backend Tests"
+    enforce_admins: false
+    required_pull_request_reviews:
+      required_approving_review_count: 1
+      dismiss_stale_reviews: true
+    allow_force_pushes: false
+    allow_deletions: false
+
+# Instruções para aplicar:
+# 1. Acesse: https://github.com/rafaelminatto1/techrun/settings/branches
+# 2. Clique em "Add rule" para cada branch
+# 3. Configure as regras conforme especificado acima

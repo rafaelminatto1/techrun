@@ -1,0 +1,47 @@
+# CODEOWNERS file para o projeto TechRun
+# Define os responsáveis por diferentes partes do código
+# Mais informações: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Responsável global pelo projeto
+* @rafaelminatto1
+
+# Frontend (React Native)
+/src/components/ @rafaelminatto1
+/src/screens/ @rafaelminatto1
+/src/navigation/ @rafaelminatto1
+/src/styles/ @rafaelminatto1
+
+# Backend (Node.js)
+/backend/ @rafaelminatto1
+/server/ @rafaelminatto1
+
+# Configurações e CI/CD
+/.github/ @rafaelminatto1
+/package.json @rafaelminatto1
+/package-lock.json @rafaelminatto1
+/yarn.lock @rafaelminatto1
+
+# Configurações do React Native
+/android/ @rafaelminatto1
+/ios/ @rafaelminatto1
+/metro.config.js @rafaelminatto1
+/babel.config.js @rafaelminatto1
+
+# Documentação
+/README.md @rafaelminatto1
+/CONTRIBUTING.md @rafaelminatto1
+/docs/ @rafaelminatto1
+
+# Testes
+/__tests__/ @rafaelminatto1
+/src/**/*.test.* @rafaelminatto1
+/src/**/*.spec.* @rafaelminatto1
+
+# Configurações de ambiente
+/.env* @rafaelminatto1
+/app.json @rafaelminatto1
+/eas.json @rafaelminatto1
+
+# TypeScript
+/tsconfig.json @rafaelminatto1
+/src/types/ @rafaelminatto1

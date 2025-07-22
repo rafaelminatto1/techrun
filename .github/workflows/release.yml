@@ -1,0 +1,107 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  create-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Build project
+        run: |
+          npm run build || echo "Build script not found, skipping..."
+
+      - name: Generate changelog
+        id: changelog
+        run: |
+          # Gera changelog baseado nos commits desde a última tag
+          PREVIOUS_TAG=$(git describe --tags --abbrev=0 HEAD^ 2>/dev/null || echo "")
+          if [ -z "$PREVIOUS_TAG" ]; then
+            CHANGELOG=$(git log --pretty=format:"- %s" --no-merges)
+          else
+            CHANGELOG=$(git log $PREVIOUS_TAG..HEAD --pretty=format:"- %s" --no-merges)
+          fi
+          echo "changelog<<EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGELOG" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: Release ${{ github.ref_name }}
+          body: |
+            ## 🚀 TechRun ${{ github.ref_name }}
+            
+            ### 📋 Changelog
+            ${{ steps.changelog.outputs.changelog }}
+            
+            ### 📱 Instalação
+            
+            #### Para Desenvolvimento:
+            ```bash
+            git clone https://github.com/rafaelminatto1/techrun.git
+            cd techrun
+            npm install
+            ```
+            
+            #### React Native:
+            ```bash
+            # iOS
+            cd ios && pod install && cd ..
+            npx react-native run-ios
+            
+            # Android
+            npx react-native run-android
+            ```
+            
+            ### 🔧 Configuração
+            1. Configure as variáveis de ambiente conforme `.env.example`
+            2. Configure o backend MongoDB
+            3. Execute as migrações se necessário
+            
+            ### 📊 Estatísticas desta Release
+            - Commits incluídos: $(git rev-list ${{ github.ref_name }} --count)
+            - Arquivos alterados: Veja o diff completo abaixo
+            
+            ---
+            
+            **Download:** Use os assets abaixo ou clone o repositório na tag `${{ github.ref_name }}`
+          draft: false
+          prerelease: false
+
+  notify-release:
+    needs: create-release
+    runs-on: ubuntu-latest
+    if: success()
+    
+    steps:
+      - name: Notify Success
+        run: |
+          echo "✅ Release ${{ github.ref_name }} criado com sucesso!"
+          echo "🔗 Acesse: https://github.com/rafaelminatto1/techrun/releases/tag/${{ github.ref_name }}"
